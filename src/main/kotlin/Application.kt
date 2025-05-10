@@ -1,4 +1,3 @@
-// src/main/kotlin/org/example/project/Application.kt
 package com.example
 
 import io.ktor.http.ContentType
@@ -29,16 +28,18 @@ data class AnimalInput(val nombre: String, val especie: String, val domesticable
 
 // 2) Repositorio en memoria con datos de ejemplo
 private val animales = mutableListOf(
-    Animal(1, "Fido", "Perro", true),
-    Animal(2, "Mipri", "Gato", true),
+    Animal(1, "Cholito", "Perro", true),
+    Animal(2, "Rui", "Gato", true),
     Animal(3, "Nemo", "Pez payaso", false),
-    Animal(4, "Polly", "Loro", true)
+    Animal(4, "Rocky", "Toro", false),
+    Animal(3, "Simba", "León", false),
+    Animal(3, "Rosa", "Pantera", false),
 )
 private var currentId = animales.size
 private val repoMutex = Mutex()
 
 fun main() {
-    embeddedServer(Netty, port = Constants.SERVER_PORT, host = "127.0.0.1", module = Application::module)
+    embeddedServer(Netty, port = 8080, host = "127.0.0.1", module = Application::module)
         .start(wait = true)
 }
 
@@ -53,7 +54,7 @@ fun Application.module() {
 
     routing {
         get("/") {
-            call.respondText("¡Servidor de Animales corriendo en el puerto ${Constants.SERVER_PORT}!", ContentType.Text.Plain)
+            call.respondText("¡Entregable certamen Aymara Rojas!", ContentType.Text.Plain)
         }
 
         route("/animales") {
